@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-TARGET = os.getenv("TARGET", "https://968-store.com")
+TARGET = os.getenv("TARGET","https://968-store.com/api/dashboard-portal-store")
 WORDLIST = os.getenv("WORDLIST", "wordlist.txt")
 DELAY = float(os.getenv("DELAY", "0.3"))
 TIMEOUT = int(os.getenv("TIMEOUT", "5"))
