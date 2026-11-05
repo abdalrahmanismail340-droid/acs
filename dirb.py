@@ -8,7 +8,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 TARGET = os.getenv("TARGET", "https://968-store.com")
 WORDLIST = os.getenv("WORDLIST", "wordlist.txt")
-DELAY = float(os.getenv("DELAY", "0.2"))
+DELAY = float(os.getenv("DELAY", "0.3"))
 TIMEOUT = int(os.getenv("TIMEOUT", "5"))
 
 HEADERS = {
@@ -32,6 +32,11 @@ def check(path):
     try:
         r = requests.get(url, headers=HEADERS, timeout=TIMEOUT,
                          allow_redirects=False, verify=False)
+        content_type = r.headers.get("Content-Type", "")
+        content_length = len(r.content)
+
+        if r.status_code == 200 and "text/html" in content_type and content_length > 800:
+            return None
         return r.status_code
     except requests.exceptions.RequestException:
         return None
